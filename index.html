@@ -33,6 +33,7 @@
       box-shadow: 0 0 20px rgba(255,255,0,0.7);
       margin-bottom: 1rem;
       object-fit: cover;
+      cursor: pointer;
     }
     header h1 { font-size: 2.5rem; font-weight: bold; }
     header p { font-size: 1.2rem; margin-top: .5rem; }
@@ -41,7 +42,6 @@
       display: flex; justify-content: center; gap: 1rem;
       background: #111; padding: 1rem;
       position: sticky; top: 0; z-index: 10;
-      flex-wrap: wrap; /* ✅ permite quebrar em telas pequenas */
     }
     nav a {
       color: #fff; text-decoration: none;
@@ -83,6 +83,8 @@
       border-radius: 12px;
       box-shadow: 0 0 15px rgba(255,255,0,0.3);
       transition: transform 0.3s;
+      cursor: pointer;
+      text-align: center;
     }
     .card:hover { transform: scale(1.05) rotate(-1deg); }
     .card strong { color: #0f0; }
@@ -104,27 +106,44 @@
       h2{font-size:1.5rem;}
     }
 
-    /* ===== Ajustes extras de responsividade ===== */
-    @media (max-width:1024px){
-      header h1 { font-size: 2rem; }
-      header p { font-size: 1rem; }
+    /* Painel Admin */
+    #adminPanel {
+      display: none;
+      position: fixed;
+      top: 10%; left: 50%;
+      transform: translateX(-50%);
+      background: #111;
+      color: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 25px #ff0;
+      width: 80%;
+      max-width: 500px;
+      z-index: 999;
     }
-    @media (max-width:768px){
-      header h1 { font-size: 1.8rem; }
-      section { padding: 2rem 1rem; }
+    #adminPanel textarea {
+      width: 100%;
+      height: 150px;
+      margin: 1rem 0;
+      background: #222;
+      color: #fff;
+      border: none;
+      padding: 1rem;
+      border-radius: 8px;
     }
-    @media (max-width:480px){
-      header img { width: 90px; height: 90px; }
-      header h1 { font-size: 1.5rem; }
-      header p { font-size: .9rem; }
-      h2 { font-size: 1.3rem; }
-      .card { font-size: .9rem; padding: .8rem; }
+    #adminPanel button {
+      padding: .7rem 1.5rem;
+      background: #ff0;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
   <header>
-    <img src="logo.jpg" alt="Logo African Shop">
+    <img src="logo.jpg" alt="Logo African Shop" id="logo">
     <h1>AFRICAN SHOP - O Teu Mundo Gamer Começa Aqui</h1>
     <p>🔒 100% Confiável | 🇦🇴 Orgulho Angolano | 🚀 Entrega Rápida</p>
   </header>
@@ -146,10 +165,10 @@
     <div class="destaques">
       <h2>Destaques da Semana</h2>
       <ul>
-        <li class="card">🔥 Promoção de Diamantes</li>
-        <li class="card">⭐ Contas Exclusivas</li>
-        <li class="card">🎮 Painéis FF Personalizados</li>
-        <li class="card">🧤 Novidade: Luvas Gamer</li>
+        <li class="card" onclick="showInfo('Promoção especial em diamantes com descontos exclusivos!')">🔥 Promoção de Diamantes</li>
+        <li class="card" onclick="showInfo('Contas exclusivas com skins raras e atualizadas!')">⭐ Contas Exclusivas</li>
+        <li class="card" onclick="showInfo('Painéis Free Fire personalizados para máxima performance!')">🎮 Painéis FF Personalizados</li>
+        <li class="card" onclick="showInfo('Novidade: Luvas gamer com entrega rápida local!')">🧤 Novidade: Luvas Gamer</li>
       </ul>
     </div>
   </section>
@@ -215,5 +234,50 @@
   <footer>
     © 2025 African Shop — Todos os direitos reservados
   </footer>
+
+  <!-- Painel Admin -->
+  <div id="adminPanel">
+    <h2>Painel Administrativo</h2>
+    <p>Edite o conteúdo abaixo e clique em "Atualizar":</p>
+    <textarea id="editor"></textarea>
+    <button onclick="applyChanges()">Atualizar</button>
+    <button onclick="closeAdmin()">Fechar</button>
+  </div>
+
+  <script>
+    function showInfo(msg){
+      alert(msg);
+    }
+
+    // Admin
+    const logo = document.getElementById("logo");
+    const adminPanel = document.getElementById("adminPanel");
+    const editor = document.getElementById("editor");
+    let selectedElement = null;
+
+    // Abrir painel ao clicar no logo
+    logo.addEventListener("click", ()=>{
+      const pass = prompt("Digite a senha de administrador:");
+      if(pass === "ADM1"){
+        alert("Bem-vindo, Administrador!");
+        adminPanel.style.display = "block";
+        // Seleciona o body inteiro para edição inicial
+        selectedElement = document.body;
+        editor.value = selectedElement.innerHTML;
+      } else {
+        alert("Senha incorreta!");
+      }
+    });
+
+    function applyChanges(){
+      if(selectedElement){
+        selectedElement.innerHTML = editor.value;
+      }
+    }
+
+    function closeAdmin(){
+      adminPanel.style.display = "none";
+    }
+  </script>
 </body>
-</html>
+  </html>
