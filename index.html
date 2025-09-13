@@ -1,3 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>African Shop - O Teu Mundo Gamer</title>
+  <style>
+    /* ===== Reset ===== */
+    * {margin:0;padding:0;box-sizing:border-box;}
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0f0f0f, #1c1c1c, #000000);
+      color: #fff;
+      overflow-x: hidden;
+    }
+    header {
+      text-align: center;
+      padding: 2rem 1rem 1rem 1rem;
+      background: linear-gradient(90deg, #ff0000, #ff7300, #ffef00, #00ff00, #008cff, #8f00ff);
+      background-size: 600% 600%;
+      animation: crazyBg 8s ease infinite;
+    }
+    @keyframes crazyBg {
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+    header img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid #fff;
+      box-shadow: 0 0 20px rgba(255,255,0,0.7);
+      margin-bottom: 1rem;
+      object-fit: cover;
+      cursor: pointer;
     }
     header h1 { font-size: 2.5rem; font-weight: bold; }
     header p { font-size: 1.2rem; margin-top: .5rem; }
@@ -97,6 +133,30 @@
       margin-left: auto;
       margin-right: auto;
     }
+
+    /* ===== Painel ADM ===== */
+    #painelADM {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.95);
+      color: #fff;
+      z-index: 1000;
+      padding: 2rem;
+      overflow-y: auto;
+    }
+    #painelADM h2 { color: #0f0; text-align: center; margin-bottom: 1rem; }
+    #painelADM label { display:block; margin:.5rem 0 .2rem; }
+    #painelADM input, #painelADM textarea {
+      width:100%; padding:.5rem; border-radius:8px; border:none; margin-bottom:1rem;
+    }
+    #painelADM button {
+      padding:.7rem 1.2rem; border:none; border-radius:8px; cursor:pointer;
+      background:#0f0; color:#000; font-weight:bold;
+    }
+    #fecharADM {
+      background:#f00; color:#fff; margin-top:1rem;
+    }
   </style>
 </head>
 <body>
@@ -167,13 +227,13 @@
   <section id="produtos">
     <h2>Produtos</h2>
     <div class="produtos">
-      <h3>💎 Diamantes Free Fire</h3>
+      <h3 onclick="abrirWhatsApp('Diamantes Free Fire')">💎 Diamantes Free Fire</h3>
       <ul>
-        <li class="card">100 Dimas – <strong>1400Kz</strong></li>
-        <li class="card">310 Dimas – <strong>3700Kz</strong></li>
-        <li class="card">520 Dimas – <strong>5500Kz</strong></li>
-        <li class="card">1060 Dimas – <strong>11000Kz</strong></li>
-        <li class="card">Passe Booyah – <strong>2500Kz</strong></li>
+        <li class="card" onclick="abrirWhatsApp('100 Dimas – 1400Kz')">100 Dimas – <strong>1400Kz</strong></li>
+        <li class="card" onclick="abrirWhatsApp('310 Dimas – 3700Kz')">310 Dimas – <strong>3700Kz</strong></li>
+        <li class="card" onclick="abrirWhatsApp('520 Dimas – 5500Kz')">520 Dimas – <strong>5500Kz</strong></li>
+        <li class="card" onclick="abrirWhatsApp('1060 Dimas – 11000Kz')">1060 Dimas – <strong>11000Kz</strong></li>
+        <li class="card" onclick="abrirWhatsApp('Passe Booyah – 2500Kz')">Passe Booyah – <strong>2500Kz</strong></li>
       </ul>
     </div>
   </section>
@@ -203,6 +263,20 @@
     © 2025 African Shop — Todos os direitos reservados
   </footer>
 
+  <!-- Painel ADM -->
+  <div id="painelADM">
+    <h2>Painel do Administrador</h2>
+    <form onsubmit="publicar(event)">
+      <label>Título da Publicação:</label>
+      <input type="text" id="tituloPub" required>
+      <label>Conteúdo:</label>
+      <textarea id="conteudoPub" rows="4" required></textarea>
+      <button type="submit">Publicar</button>
+    </form>
+    <button id="fecharADM" onclick="document.getElementById('painelADM').style.display='none'">Fechar Painel</button>
+    <div id="publicacoes" style="margin-top:2rem;"></div>
+  </div>
+
   <script>
     function abrirPagina(id){
       fecharPaginas();
@@ -215,11 +289,29 @@
     function abrirPainelADM(){
       let senha = prompt("Digite a senha de administrador:");
       if(senha === "ADM1"){
-        alert("✅ Bem-vindo ao Painel ADM! (em breve edição completa aqui)");
+        document.getElementById('painelADM').style.display = "block";
       } else if(senha){
         alert("❌ Senha incorreta!");
       }
     }
+    function abrirWhatsApp(produto){
+      let numero = "244956581637"; // número de WhatsApp
+      let url = `https://wa.me/${numero}?text=Olá, gostaria de comprar: ${encodeURIComponent(produto)}`;
+      window.open(url, "_blank");
+    }
+    function publicar(e){
+      e.preventDefault();
+      let titulo = document.getElementById('tituloPub').value;
+      let conteudo = document.getElementById('conteudoPub').value;
+      let area = document.getElementById('publicacoes');
+      let novo = document.createElement('div');
+      novo.className = "card";
+      novo.innerHTML = `<h3>${titulo}</h3><p>${conteudo}</p>`;
+      area.appendChild(novo);
+      document.getElementById('tituloPub').value="";
+      document.getElementById('conteudoPub').value="";
+      alert("✅ Publicação adicionada com sucesso!");
+    }
   </script>
 </body>
-  </html>
+    </html>
