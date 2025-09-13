@@ -19,6 +19,7 @@
       background: linear-gradient(90deg, #ff0000, #ff7300, #ffef00, #00ff00, #008cff, #8f00ff);
       background-size: 600% 600%;
       animation: crazyBg 8s ease infinite;
+      cursor: pointer;
     }
     @keyframes crazyBg {
       0%{background-position:0% 50%}
@@ -33,7 +34,6 @@
       box-shadow: 0 0 20px rgba(255,255,0,0.7);
       margin-bottom: 1rem;
       object-fit: cover;
-      cursor: pointer;
     }
     header h1 { font-size: 2.5rem; font-weight: bold; }
     header p { font-size: 1.2rem; margin-top: .5rem; }
@@ -88,9 +88,7 @@
     .card:hover { transform: scale(1.05) rotate(-1deg); }
     .card strong { color: #0f0; }
 
-    .contato, .depoimentos {
-      text-align: center;
-    }
+    .contato, .depoimentos { text-align: center; }
     .contato p { margin: .5rem 0; }
 
     footer {
@@ -105,63 +103,37 @@
       h2{font-size:1.5rem;}
     }
 
-    /* ===== Páginas Virtuais ===== */
-    .pagina {
-      display: none;
-      padding: 2rem;
-      background: #111;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(255,255,0,0.3);
-      margin: 1rem auto;
-      max-width: 800px;
+    /* Painel ADM */
+    #adminPanel {
+      display:none;
+      position:fixed;
+      top:50%; left:50%;
+      transform:translate(-50%,-50%);
+      background:#111;
+      padding:20px;
+      border-radius:10px;
+      box-shadow:0 0 20px #ff0;
+      z-index:999;
+      width:90%; max-width:400px;
     }
-    .pagina h3 {
-      text-align: center;
-      margin-bottom: 1rem;
-      color: #0f0;
+    #adminPanel input, #adminPanel select {
+      width:100%; margin:5px 0; padding:10px;
+      border:none; border-radius:5px;
     }
-    .fechar {
-      display: block;
-      text-align: center;
-      margin-top: 1rem;
-      padding: .5rem 1rem;
-      background: #f00;
-      color: #fff;
-      border-radius: 8px;
-      cursor: pointer;
-      width: 120px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    /* ===== Painel ADM ===== */
-    #painelADM {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.95);
-      color: #fff;
-      z-index: 1000;
-      padding: 2rem;
-      overflow-y: auto;
-    }
-    #painelADM h2 { color: #0f0; text-align: center; margin-bottom: 1rem; }
-    #painelADM label { display:block; margin:.5rem 0 .2rem; }
-    #painelADM input, #painelADM textarea {
-      width:100%; padding:.5rem; border-radius:8px; border:none; margin-bottom:1rem;
-    }
-    #painelADM button {
-      padding:.7rem 1.2rem; border:none; border-radius:8px; cursor:pointer;
-      background:#0f0; color:#000; font-weight:bold;
-    }
-    #fecharADM {
-      background:#f00; color:#fff; margin-top:1rem;
+    #adminPanel button {
+      margin-top:10px;
+      width:100%;
+      padding:10px;
+      background:#ff0;
+      border:none;
+      font-weight:bold;
+      cursor:pointer;
     }
   </style>
 </head>
 <body>
-  <header>
-    <img src="logo.jpg" alt="Logo African Shop" onclick="abrirPainelADM()">
+  <header onclick="openAdmin()">
+    <img src="logo.jpg" alt="Logo African Shop">
     <h1>AFRICAN SHOP - O Teu Mundo Gamer Começa Aqui</h1>
     <p>🔒 100% Confiável | 🇦🇴 Orgulho Angolano | 🚀 Entrega Rápida</p>
   </header>
@@ -183,38 +155,13 @@
     <div class="destaques">
       <h2>Destaques da Semana</h2>
       <ul>
-        <li class="card" onclick="abrirPagina('promoDiamantes')">🔥 Promoção de Diamantes</li>
-        <li class="card" onclick="abrirPagina('contasExclusivas')">⭐ Contas Exclusivas</li>
-        <li class="card" onclick="abrirPagina('paineisFF')">🎮 Painéis FF Personalizados</li>
-        <li class="card" onclick="abrirPagina('luvasGamer')">🧤 Novidade: Luvas Gamer</li>
+        <li class="card">🔥 Promoção de Diamantes</li>
+        <li class="card">⭐ Contas Exclusivas</li>
+        <li class="card">🎮 Painéis FF Personalizados</li>
+        <li class="card">🧤 Novidade: Luvas Gamer</li>
       </ul>
     </div>
   </section>
-
-  <!-- ===== Páginas Virtuais ===== -->
-  <div id="promoDiamantes" class="pagina">
-    <h3>🔥 Promoção de Diamantes</h3>
-    <p>Aproveita descontos especiais em recargas de diamantes Free Fire!</p>
-    <span class="fechar" onclick="fecharPaginas()">Fechar</span>
-  </div>
-
-  <div id="contasExclusivas" class="pagina">
-    <h3>⭐ Contas Exclusivas</h3>
-    <p>Contas raras e premium com skins limitadas disponíveis!</p>
-    <span class="fechar" onclick="fecharPaginas()">Fechar</span>
-  </div>
-
-  <div id="paineisFF" class="pagina">
-    <h3>🎮 Painéis FF Personalizados</h3>
-    <p>Painéis 100% HS configurados e garantidos para melhorar tua jogabilidade.</p>
-    <span class="fechar" onclick="fecharPaginas()">Fechar</span>
-  </div>
-
-  <div id="luvasGamer" class="pagina">
-    <h3>🧤 Novidade: Luvas Gamer</h3>
-    <p>Joga com mais conforto e precisão com nossas luvas gamer!</p>
-    <span class="fechar" onclick="fecharPaginas()">Fechar</span>
-  </div>
 
   <section id="sobre">
     <h2>Sobre Nós</h2>
@@ -227,13 +174,28 @@
   <section id="produtos">
     <h2>Produtos</h2>
     <div class="produtos">
-      <h3 onclick="abrirWhatsApp('Diamantes Free Fire')">💎 Diamantes Free Fire</h3>
-      <ul>
-        <li class="card" onclick="abrirWhatsApp('100 Dimas – 1400Kz')">100 Dimas – <strong>1400Kz</strong></li>
-        <li class="card" onclick="abrirWhatsApp('310 Dimas – 3700Kz')">310 Dimas – <strong>3700Kz</strong></li>
-        <li class="card" onclick="abrirWhatsApp('520 Dimas – 5500Kz')">520 Dimas – <strong>5500Kz</strong></li>
-        <li class="card" onclick="abrirWhatsApp('1060 Dimas – 11000Kz')">1060 Dimas – <strong>11000Kz</strong></li>
-        <li class="card" onclick="abrirWhatsApp('Passe Booyah – 2500Kz')">Passe Booyah – <strong>2500Kz</strong></li>
+      <h3>💎 Diamantes Free Fire</h3>
+      <ul id="diamantes">
+        <li class="card" onclick="goWhatsApp('100 Dimas – 1400Kz')">100 Dimas – <strong>1400Kz</strong></li>
+        <li class="card" onclick="goWhatsApp('310 Dimas – 3700Kz')">310 Dimas – <strong>3700Kz</strong></li>
+        <li class="card" onclick="goWhatsApp('520 Dimas – 5500Kz')">520 Dimas – <strong>5500Kz</strong></li>
+        <li class="card" onclick="goWhatsApp('1060 Dimas – 11000Kz')">1060 Dimas – <strong>11000Kz</strong></li>
+        <li class="card" onclick="goWhatsApp('Passe Booyah – 2500Kz')">Passe Booyah – <strong>2500Kz</strong></li>
+      </ul>
+
+      <h3>🧤 Acessórios Gamer</h3>
+      <ul id="acessorios">
+        <li class="card">Luvas Gamer – <strong>1200Kz</strong></li>
+      </ul>
+
+      <h3>🕹️ Contas FF Premium</h3>
+      <ul id="contas">
+        <li class="card">Contas com skins raras, sempre atualizadas</li>
+      </ul>
+
+      <h3>📦 Painéis e Serviços</h3>
+      <ul id="paineis">
+        <li class="card">Painéis 100% HS com garantia</li>
       </ul>
     </div>
   </section>
@@ -263,54 +225,50 @@
     © 2025 African Shop — Todos os direitos reservados
   </footer>
 
-  <!-- Painel ADM -->
-  <div id="painelADM">
-    <h2>Painel do Administrador</h2>
-    <form onsubmit="publicar(event)">
-      <label>Título da Publicação:</label>
-      <input type="text" id="tituloPub" required>
-      <label>Conteúdo:</label>
-      <textarea id="conteudoPub" rows="4" required></textarea>
-      <button type="submit">Publicar</button>
-    </form>
-    <button id="fecharADM" onclick="document.getElementById('painelADM').style.display='none'">Fechar Painel</button>
-    <div id="publicacoes" style="margin-top:2rem;"></div>
+  <!-- Painel do ADM -->
+  <div id="adminPanel">
+    <h3 style="text-align:center;color:#ff0;">Painel do ADM</h3>
+    <select id="categoria">
+      <option value="diamantes">💎 Diamantes</option>
+      <option value="contas">🕹️ Contas</option>
+      <option value="paineis">📦 Painéis</option>
+      <option value="acessorios">🧤 Acessórios</option>
+    </select>
+    <input type="text" id="novoItem" placeholder="Digite a nova publicação">
+    <button onclick="addPublicacao()">Adicionar</button>
+    <button onclick="closeAdmin()">Fechar</button>
   </div>
 
   <script>
-    function abrirPagina(id){
-      fecharPaginas();
-      document.getElementById(id).style.display = "block";
-      window.scrollTo({top:0, behavior:"smooth"});
+    // Redirecionar produtos ao WhatsApp
+    function goWhatsApp(produto){
+      let msg = encodeURIComponent("Olá! Quero comprar: " + produto);
+      window.open("https://wa.me/244956581637?text=" + msg, "_blank");
     }
-    function fecharPaginas(){
-      document.querySelectorAll(".pagina").forEach(p => p.style.display="none");
-    }
-    function abrirPainelADM(){
-      let senha = prompt("Digite a senha de administrador:");
+
+    // Painel ADM
+    function openAdmin(){
+      let senha = prompt("Digite a senha de ADM:");
       if(senha === "ADM1"){
-        document.getElementById('painelADM').style.display = "block";
-      } else if(senha){
-        alert("❌ Senha incorreta!");
+        document.getElementById("adminPanel").style.display = "block";
+      } else {
+        alert("Senha incorreta!");
       }
     }
-    function abrirWhatsApp(produto){
-      let numero = "244956581637"; // número de WhatsApp
-      let url = `https://wa.me/${numero}?text=Olá, gostaria de comprar: ${encodeURIComponent(produto)}`;
-      window.open(url, "_blank");
+    function closeAdmin(){
+      document.getElementById("adminPanel").style.display = "none";
     }
-    function publicar(e){
-      e.preventDefault();
-      let titulo = document.getElementById('tituloPub').value;
-      let conteudo = document.getElementById('conteudoPub').value;
-      let area = document.getElementById('publicacoes');
-      let novo = document.createElement('div');
-      novo.className = "card";
-      novo.innerHTML = `<h3>${titulo}</h3><p>${conteudo}</p>`;
-      area.appendChild(novo);
-      document.getElementById('tituloPub').value="";
-      document.getElementById('conteudoPub').value="";
-      alert("✅ Publicação adicionada com sucesso!");
+    function addPublicacao(){
+      let cat = document.getElementById("categoria").value;
+      let item = document.getElementById("novoItem").value.trim();
+      if(item){
+        let li = document.createElement("li");
+        li.className = "card";
+        li.textContent = item;
+        document.getElementById(cat).appendChild(li);
+        document.getElementById("novoItem").value = "";
+        alert("Publicação adicionada em " + cat + "!");
+      }
     }
   </script>
 </body>
