@@ -84,7 +84,6 @@
       box-shadow: 0 0 15px rgba(255,255,0,0.3);
       transition: transform 0.3s;
       cursor: pointer;
-      text-align: center;
     }
     .card:hover { transform: scale(1.05) rotate(-1deg); }
     .card strong { color: #0f0; }
@@ -106,44 +105,39 @@
       h2{font-size:1.5rem;}
     }
 
-    /* Painel Admin */
-    #adminPanel {
+    /* ===== Páginas Virtuais ===== */
+    .pagina {
       display: none;
-      position: fixed;
-      top: 10%; left: 50%;
-      transform: translateX(-50%);
-      background: #111;
-      color: #fff;
       padding: 2rem;
+      background: #111;
       border-radius: 12px;
-      box-shadow: 0 0 25px #ff0;
-      width: 80%;
-      max-width: 500px;
-      z-index: 999;
+      box-shadow: 0 0 15px rgba(255,255,0,0.3);
+      margin: 1rem auto;
+      max-width: 800px;
     }
-    #adminPanel textarea {
-      width: 100%;
-      height: 150px;
-      margin: 1rem 0;
-      background: #222;
+    .pagina h3 {
+      text-align: center;
+      margin-bottom: 1rem;
+      color: #0f0;
+    }
+    .fechar {
+      display: block;
+      text-align: center;
+      margin-top: 1rem;
+      padding: .5rem 1rem;
+      background: #f00;
       color: #fff;
-      border: none;
-      padding: 1rem;
       border-radius: 8px;
-    }
-    #adminPanel button {
-      padding: .7rem 1.5rem;
-      background: #ff0;
-      border: none;
-      border-radius: 8px;
-      font-weight: bold;
       cursor: pointer;
+      width: 120px;
+      margin-left: auto;
+      margin-right: auto;
     }
   </style>
 </head>
 <body>
   <header>
-    <img src="logo.jpg" alt="Logo African Shop" id="logo">
+    <img src="logo.jpg" alt="Logo African Shop" onclick="abrirPainelADM()">
     <h1>AFRICAN SHOP - O Teu Mundo Gamer Começa Aqui</h1>
     <p>🔒 100% Confiável | 🇦🇴 Orgulho Angolano | 🚀 Entrega Rápida</p>
   </header>
@@ -165,13 +159,38 @@
     <div class="destaques">
       <h2>Destaques da Semana</h2>
       <ul>
-        <li class="card" onclick="showInfo('Promoção especial em diamantes com descontos exclusivos!')">🔥 Promoção de Diamantes</li>
-        <li class="card" onclick="showInfo('Contas exclusivas com skins raras e atualizadas!')">⭐ Contas Exclusivas</li>
-        <li class="card" onclick="showInfo('Painéis Free Fire personalizados para máxima performance!')">🎮 Painéis FF Personalizados</li>
-        <li class="card" onclick="showInfo('Novidade: Luvas gamer com entrega rápida local!')">🧤 Novidade: Luvas Gamer</li>
+        <li class="card" onclick="abrirPagina('promoDiamantes')">🔥 Promoção de Diamantes</li>
+        <li class="card" onclick="abrirPagina('contasExclusivas')">⭐ Contas Exclusivas</li>
+        <li class="card" onclick="abrirPagina('paineisFF')">🎮 Painéis FF Personalizados</li>
+        <li class="card" onclick="abrirPagina('luvasGamer')">🧤 Novidade: Luvas Gamer</li>
       </ul>
     </div>
   </section>
+
+  <!-- ===== Páginas Virtuais ===== -->
+  <div id="promoDiamantes" class="pagina">
+    <h3>🔥 Promoção de Diamantes</h3>
+    <p>Aproveita descontos especiais em recargas de diamantes Free Fire!</p>
+    <span class="fechar" onclick="fecharPaginas()">Fechar</span>
+  </div>
+
+  <div id="contasExclusivas" class="pagina">
+    <h3>⭐ Contas Exclusivas</h3>
+    <p>Contas raras e premium com skins limitadas disponíveis!</p>
+    <span class="fechar" onclick="fecharPaginas()">Fechar</span>
+  </div>
+
+  <div id="paineisFF" class="pagina">
+    <h3>🎮 Painéis FF Personalizados</h3>
+    <p>Painéis 100% HS configurados e garantidos para melhorar tua jogabilidade.</p>
+    <span class="fechar" onclick="fecharPaginas()">Fechar</span>
+  </div>
+
+  <div id="luvasGamer" class="pagina">
+    <h3>🧤 Novidade: Luvas Gamer</h3>
+    <p>Joga com mais conforto e precisão com nossas luvas gamer!</p>
+    <span class="fechar" onclick="fecharPaginas()">Fechar</span>
+  </div>
 
   <section id="sobre">
     <h2>Sobre Nós</h2>
@@ -191,21 +210,6 @@
         <li class="card">520 Dimas – <strong>5500Kz</strong></li>
         <li class="card">1060 Dimas – <strong>11000Kz</strong></li>
         <li class="card">Passe Booyah – <strong>2500Kz</strong></li>
-      </ul>
-
-      <h3>🧤 Acessórios Gamer</h3>
-      <ul>
-        <li class="card">Luvas Gamer – <strong>1200Kz</strong></li>
-      </ul>
-
-      <h3>🕹️ Contas FF Premium</h3>
-      <ul>
-        <li class="card">Contas com skins raras, sempre atualizadas</li>
-      </ul>
-
-      <h3>📦 Painéis e Serviços</h3>
-      <ul>
-        <li class="card">Painéis 100% HS com garantia</li>
       </ul>
     </div>
   </section>
@@ -235,48 +239,22 @@
     © 2025 African Shop — Todos os direitos reservados
   </footer>
 
-  <!-- Painel Admin -->
-  <div id="adminPanel">
-    <h2>Painel Administrativo</h2>
-    <p>Edite o conteúdo abaixo e clique em "Atualizar":</p>
-    <textarea id="editor"></textarea>
-    <button onclick="applyChanges()">Atualizar</button>
-    <button onclick="closeAdmin()">Fechar</button>
-  </div>
-
   <script>
-    function showInfo(msg){
-      alert(msg);
+    function abrirPagina(id){
+      fecharPaginas();
+      document.getElementById(id).style.display = "block";
+      window.scrollTo({top:0, behavior:"smooth"});
     }
-
-    // Admin
-    const logo = document.getElementById("logo");
-    const adminPanel = document.getElementById("adminPanel");
-    const editor = document.getElementById("editor");
-    let selectedElement = null;
-
-    // Abrir painel ao clicar no logo
-    logo.addEventListener("click", ()=>{
-      const pass = prompt("Digite a senha de administrador:");
-      if(pass === "ADM1"){
-        alert("Bem-vindo, Administrador!");
-        adminPanel.style.display = "block";
-        // Seleciona o body inteiro para edição inicial
-        selectedElement = document.body;
-        editor.value = selectedElement.innerHTML;
-      } else {
-        alert("Senha incorreta!");
-      }
-    });
-
-    function applyChanges(){
-      if(selectedElement){
-        selectedElement.innerHTML = editor.value;
-      }
+    function fecharPaginas(){
+      document.querySelectorAll(".pagina").forEach(p => p.style.display="none");
     }
-
-    function closeAdmin(){
-      adminPanel.style.display = "none";
+    function abrirPainelADM(){
+      let senha = prompt("Digite a senha de administrador:");
+      if(senha === "ADM1"){
+        alert("✅ Bem-vindo ao Painel ADM! (em breve edição completa aqui)");
+      } else if(senha){
+        alert("❌ Senha incorreta!");
+      }
     }
   </script>
 </body>
