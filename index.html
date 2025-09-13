@@ -41,7 +41,7 @@
       display: flex; justify-content: center; gap: 1rem;
       background: #111; padding: 1rem;
       position: sticky; top: 0; z-index: 10;
-      flex-wrap: wrap;
+      flex-wrap: wrap; /* ✅ permite quebrar em telas pequenas */
     }
     nav a {
       color: #fff; text-decoration: none;
@@ -99,25 +99,26 @@
       font-size: .9rem;
       color: #aaa;
     }
-
-    /* ===== Responsividade ===== */
-    @media (max-width: 900px){
-      header h1{font-size:2rem;}
-      header p{font-size:1rem;}
-      h2{font-size:1.6rem;}
-    }
-    @media (max-width: 600px){
+    @media (max-width:600px){
       header h1{font-size:1.8rem;}
-      header img{width:90px;height:90px;}
-      nav{flex-direction: column; gap:.5rem;}
-      h2{font-size:1.4rem;}
-      body{font-size:0.95rem;}
+      h2{font-size:1.5rem;}
     }
-    @media (max-width: 400px){
-      header h1{font-size:1.4rem;}
-      header p{font-size:0.9rem;}
-      h2{font-size:1.2rem;}
-      .card{padding:.7rem;}
+
+    /* ===== Ajustes extras de responsividade ===== */
+    @media (max-width:1024px){
+      header h1 { font-size: 2rem; }
+      header p { font-size: 1rem; }
+    }
+    @media (max-width:768px){
+      header h1 { font-size: 1.8rem; }
+      section { padding: 2rem 1rem; }
+    }
+    @media (max-width:480px){
+      header img { width: 90px; height: 90px; }
+      header h1 { font-size: 1.5rem; }
+      header p { font-size: .9rem; }
+      h2 { font-size: 1.3rem; }
+      .card { font-size: .9rem; padding: .8rem; }
     }
   </style>
 </head>
